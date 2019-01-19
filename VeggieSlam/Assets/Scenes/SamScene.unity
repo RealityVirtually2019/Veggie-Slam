@@ -802,6 +802,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 120634715460690420, guid: 2b131b102bcb1a1428d039a78a36f52c,
+        type: 2}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.07737732
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b131b102bcb1a1428d039a78a36f52c, type: 2}
   m_IsPrefabAsset: 0

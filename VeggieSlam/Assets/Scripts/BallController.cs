@@ -15,6 +15,7 @@ public class BallController : MonoBehaviour
     void Start()
     {
         ball = gameObject.GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
