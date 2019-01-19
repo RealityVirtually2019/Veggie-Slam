@@ -48,7 +48,8 @@ public class PlayerController : MonoBehaviour {
             //paddle.transform.position = paddlePosition;
         }
 
-        if (GvrControllerInput.AppButton)
+        //if (GvrControllerInput.AppButton)
+        if (OVRInput.GetDown(OVRInput.Touch.PrimaryTouchpad))
         {
             teleportLine.enabled = true;
             positions = curvedRaycast(startLinePos.transform.position, startLinePos.transform.forward, 2, 30);
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour {
                     teleportLine.SetPosition(i + 1, positions[i]);
             }
         }
-        if (GvrControllerInput.AppButtonUp)
+        if (OVRInput.GetUp(OVRInput.Touch.PrimaryTouchpad))
         {
             Vector3 currPos = gameObject.transform.position;
             Vector3 teleportPos = positions[positions.Count - 1];

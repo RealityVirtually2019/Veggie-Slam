@@ -10,6 +10,8 @@ public class BallController : MonoBehaviour
     [SerializeField]
     private float ballSpeedMultiplier = 10f;
     [SerializeField] private Vector3 selfPosition;
+    [SerializeField] private float maxVel = 30f;
+    private int hitCount = 0;
     // Use this for initialization
     void Start()
     {
@@ -58,9 +60,12 @@ public class BallController : MonoBehaviour
          
          // calculate with Vector3.Reflect
          ball.velocity = Vector3.Reflect(oldVel,cp.normal);
-         
-         // bumper effect to speed up ball
-         ball.velocity += cp.normal*1.0f;
+
+            // bumper effect to speed up ball
+            //if (ball.velocity < maxVel)
+            if (hitCount < 20)
+              ball.velocity += cp.normal;
+         hitCount++;
         }
         
     }

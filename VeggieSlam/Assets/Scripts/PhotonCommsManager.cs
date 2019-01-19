@@ -21,16 +21,17 @@ public class PhotonCommsManager : Photon.PunBehaviour
 
     public override void OnCreatedRoom()
     {
-        PhotonNetwork.Instantiate("Sphere", new Vector3(.23f, .98f, 4.13f), Quaternion.identity, 0);
+        PhotonNetwork.Instantiate("Sphere", new Vector3(20.3f, 3.79f, 13.6f), Quaternion.identity, 0);
     }
 
     public override void OnJoinedRoom()
     {
+        
         if (PhotonNetwork.countOfPlayersInRooms == 0)
         // instantiate user avatar locally and spawns in remote instances
-            currentPlayer = PhotonNetwork.Instantiate("PlayerSpawn", new Vector3(0, 1.235f, 2.65f), Quaternion.identity, 0);
+            currentPlayer = PhotonNetwork.Instantiate("PlayerSpawnOculus", new Vector3(23.6f, 0.89f, 18.1f), new Quaternion(0f, 596.3f, 0f, 1f), 0);
         else
-            currentPlayer = PhotonNetwork.Instantiate("PlayerSpawn", new Vector3(0, 1.235f, 0f), Quaternion.identity, 0);
+            currentPlayer = PhotonNetwork.Instantiate("PlayerSpawnOculus", new Vector3(-22.6f, 0.89f, -10.3f), new Quaternion(0f, 401.55f,0f,1f), 0);
     }
 
     // This is called if there is no one playing or if all rooms are full, so create a new room
