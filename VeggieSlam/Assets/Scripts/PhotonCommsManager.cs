@@ -19,6 +19,11 @@ public class PhotonCommsManager : Photon.PunBehaviour
         PhotonNetwork.JoinRandomRoom();
     }
 
+    public override void OnCreatedRoom()
+    {
+        PhotonNetwork.Instantiate("Sphere", new Vector3(.23f, .98f, 4.13f), Quaternion.identity, 0);
+    }
+
     public override void OnJoinedRoom()
     {
         if (PhotonNetwork.countOfPlayersInRooms == 0)
