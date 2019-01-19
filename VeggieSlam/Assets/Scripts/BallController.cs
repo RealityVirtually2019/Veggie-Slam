@@ -6,24 +6,37 @@ public class BallController : MonoBehaviour
 {
 
     private Rigidbody ball;
+    private Vector3 oldVel;
     [SerializeField]
     private float ballSpeedMultiplier = 10f;
+    
     // Use this for initialization
     void Start()
     {
         ball = gameObject.GetComponent<Rigidbody>();
-        
+        StartCoroutine(ChangeRotation());
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        oldVel = ball.velocity;
+        Debug.Log("Recorded Velocity Magnitude: " + oldVel.magnitude);
+    }
 
+    private IEnumerator ChangeRotation()
+    {
+        while(true)
+        {
+            ball.AddTorque(new Vector3(10 * UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f)), ForceMode.VelocityChange);
+            Debug.Log("Random ball rotation applied");
+            yield return new WaitForSeconds(1);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Hitting");
+        
         if (collision.collider.tag == "Weapon")
         {
             //ball.AddForce(new Vector3 (0f,10f,10f), ForceMode.Acceleration);
@@ -36,5 +49,20 @@ public class BallController : MonoBehaviour
             ball.AddForce(dir * ballSpeedMultiplier, ForceMode.Impulse);
             ballSpeedMultiplier += 1f;
         }
+        if (collision.collider.tag == "Wall")
+        //Bumper "Creep" effect. (Ball will bounce off the walls and slowly gain speed)
+        //Current Top Speed before clipping: ~105ish
+        {
+           ContactPoint cp = collision.contacts[0];
+         // calculate with addition of normal vector
+         // myRigidbody.velocity = oldVel + cp.normal*2.0f*oldVel.magnitude;
+         
+         // calculate with Vector3.Reflect
+         ball.velocity = Vector3.Reflect(oldVel,cp.normal);
+         
+         // bumper effect to speed up ball
+         ball.velocity += cp.normal*1.0f;
+        }
+        
     }
 }
