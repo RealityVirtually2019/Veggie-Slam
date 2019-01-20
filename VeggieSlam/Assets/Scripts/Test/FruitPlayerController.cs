@@ -29,7 +29,12 @@ public class FruitPlayerController : MonoBehaviour {
         else
         {
             restart.SetActive(true);
-            laser.SetActive(true);
+            //laser.SetActive(true); //Enable for GVR
+            //OVR Change Scene
+            if (OVRInput.Get(OVRInput.Touch.PrimaryTouchpad))
+            {
+                RestartScene();
+            }
         }
     }
 
