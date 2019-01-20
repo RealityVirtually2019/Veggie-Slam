@@ -10,15 +10,16 @@ public class FruitPlayerController : MonoBehaviour {
     public static float time = 60f;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timerText;
+    public ParticleSystem particle;
     public GameObject laser;
     public GameObject restart;
+
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    void Start() {
+    }
+
+    // Update is called once per frame
+    void Update() {
         if (time > 0)
         {
             time -= Time.deltaTime;
@@ -28,9 +29,18 @@ public class FruitPlayerController : MonoBehaviour {
         else
         {
             restart.SetActive(true);
-            laser.SetActive(true);
+            //laser.SetActive(true); //Enable for GVR
+            //OVR Change Scene
+            if (OVRInput.Get(OVRInput.Touch.PrimaryTouchpad))
+            {
+                RestartScene();
+            }
         }
-	}
+    }
+
+    public void PlayParticle() {
+        particle.Play();
+    }
 
     public void RestartScene ()
     {
