@@ -4,13 +4,30 @@ using UnityEngine;
 
 public class FruitController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+    [SerializeField] private float forceMultiplier = 1f/9.8f;
+
+    // Use this for initialization
+    void Start () {
+        gameObject.GetComponent<Rigidbody>().AddForce(Vector3.back / 100000f, ForceMode.Impulse);
+        StartCoroutine("Destroyed");
 	}
+
+    IEnumerator Destroyed ()
+    {
+        yield return new WaitForSeconds(3);
+        Destroy(gameObject);
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "Weapon")
+          FruitPlayerController.Score++;
+        Destroy(gameObject);
+    }
 }
